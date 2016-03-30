@@ -23,10 +23,26 @@ radio.setAutoAck(1);                    // Ensure autoACK is enabled
 radio.setRetries(15,15);                // Max delay between retries & number of retries  
 radio.startListening();                 // First, stop listening so we can talk.
 radio.printDetails();                   // Dump the configuration of the rf unit for debugging
+
+   radio.openWritingPipe(addresses[0]);    //*Edit to correct address assignments
+   radio.openReadingPipe(1,addresses[1]);
+   radio.stopListening(); 
+  
+
 }
 
-void loop() { 
-temp = analogRead(tempPin);
+char myArray[] = "This is not a test";
+
+void loop() {
+      bool ok = radio.write(&myArray,sizeof(myArray));
+ 
+     if(ok){ Serial.println("Transfer OK");
+     }else { Serial.println("Transfer Fail"); 
+     }
+     delay(1000);
+  
+} 
+/*temp = analogRead(tempPin);
 temp = temp * 0.48828125;
 Serial.println(temp);
 //sprintf(sprintfbuffer,"%f", temp);
@@ -60,4 +76,4 @@ unsigned long started_waiting_at = micros();                   // Set up a timeo
     }
    
 delay(5000);
-}
+}*/
