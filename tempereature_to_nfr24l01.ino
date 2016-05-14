@@ -64,5 +64,5 @@ stringOne.toCharArray(charBuf, length);
     Serial.println("Transfer Fail");
   }
   // delay before sending new packet
-  delay(1000);
+  delay(10000);
 }
