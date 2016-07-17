@@ -11,7 +11,7 @@ int tempPin = 0;
 // Hardware configuration: Set up nRF24L01 radio on SPI bus plus pins 9 & 10
 RF24 radio(9, 10);
 
-byte addresses[][6] = {"1Node", "2Node"};
+byte addresses[][6] = {"1Node", "2Node", "3Node"};
 
 void setup() {
   //analogReference(INTERNAL);
@@ -40,7 +40,7 @@ String stringOne = "";
 // add node name to string  
 stringOne = "1Node:";
 
-// add temperature to sting
+// add temperature to string
 stringOne += temp;
 
 // add leading ; to notify receiver
@@ -63,6 +63,9 @@ stringOne.toCharArray(charBuf, length);
   } else {
     Serial.println("Transfer Fail");
   }
-  // delay before sending new packet
-  delay(10000);
+  // 15 min delay before sending new packet
+  int i;
+  for (i = 1; i < 16; i++) {
+    delay(60000);
+  }
 }
